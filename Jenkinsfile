@@ -5,7 +5,7 @@ pipeline {
     }
   }
 
-parameters {
+  parameters {
         string(name: 'Image_Version', defaultValue: '0.1', description: 'Enter The Image Version to build')
         choice(name: 'choice', choices: 'one\ntwo\nthree', description: 'Just testing it!')
         
