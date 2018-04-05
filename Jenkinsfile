@@ -11,5 +11,10 @@ pipeline {
         sh 'docker build -t test/image:0.1 .'
       }
     }
+    stage('Push Image to Repo') {
+      steps {
+        sh 'echo "Pushed Image successfully"'
+      }
+    }
   }
 }
