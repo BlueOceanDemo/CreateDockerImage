@@ -1,20 +1,32 @@
 pipeline {
-  agent {
-    node {
-      label 'docker'
+    agent any
+    stages {
+        stage("Checkout Code") {
+            steps {
+                script {
+                    checkout scm
+                }
+            }
+        }
+        stage("Install Docker") {
+            steps {
+                sh "yum install docker -y"
+            }
+        }
+        stage("Build") {
+            steps {
+                sh "pwd"
+                sh "ls -ltrha"
+                sh "docker build -t test/test:latest ."
+            }
+        }
+        stage("Push") {
+            when {
+                branch 'master'
+            }
+            steps {
+                sh "echo "Pushed Image Successfully""
+            }
+        }
     }
-    
-  }
-  stages {
-    stage('BuildImage') {
-      steps {
-        sh 'docker build -t test/image:0.1 .'
-      }
-    }
-    stage('Push Image to Repo') {
-      steps {
-        sh 'echo "Pushed Image successfully"'
-      }
-    }
-  }
 }
