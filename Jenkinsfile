@@ -1,10 +1,19 @@
-agent {
-    // Equivalent to "docker build -f Dockerfile.build --build-arg version=1.0.2 ./build/
-    dockerfile {
-        filename 'Dockerfile'
-        dir 'build'
-        label 'my-defined-label'
-        additionalBuildArgs  '--build-arg version=1.0.2'
-    }
-}
+node {
+    stage 'Checkout'
+    /* Checkout the code we are currently running against */
+    checkout scm
 
+    stage 'Build'
+    /* Build the Docker image with a Dockerfile, tagging it with the build number */
+    def app = docker.build "artirix/our-app:${env.BUILD_NUMBER}"
+
+    stage 'Test'
+    /* We can run tests inside our new image */
+    app.inside {
+        sh '/app/run_tests.sh'
+    }
+
+    stage 'Publish'
+    /* Push the image to Docker Hub, using credentials we have setup separately on the worker node */
+    app.push 'latest'
+}
