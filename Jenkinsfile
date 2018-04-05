@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+  agent { 
+    node { 
+        label 'docker' 
+    }
+  }
     stages {
         stage("Checkout Code") {
             steps {
@@ -10,7 +14,7 @@ pipeline {
         }
         stage("Install Docker") {
             steps {
-                sh "yum install docker -y"
+                sh "dpkg -k | grep docker"
             }
         }
         stage("Build") {
