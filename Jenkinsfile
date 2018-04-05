@@ -1,14 +1,14 @@
 pipeline {
   agent {
-    dockerfile {
-      filename 'Dockerfile'
+    node {
+      label 'master'
     }
     
   }
   stages {
     stage('BuildImage') {
       steps {
-        sh 'ls -l'
+        sh 'docker build -t test/image:0.1 .'
       }
     }
   }
