@@ -25,7 +25,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-                sh "echo "Pushed Image Successfully""
+                sh "echo 'Pushed Image Successfully'"
             }
         }
     }
