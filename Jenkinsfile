@@ -14,7 +14,7 @@ pipeline {
         }
         stage("Install Docker") {
             steps {
-                sh "dpkg -k | grep docker"
+                sh "dpkg -l | grep docker"
             }
         }
         stage("Build") {
