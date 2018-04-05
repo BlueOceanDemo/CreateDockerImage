@@ -29,7 +29,7 @@ parameters {
                 sh "pwd"
                 sh "ls -ltrha"
                 sh "docker build -t test/test:${params.Image_Version} ."
-                sh "docker images ls | grep test/test"
+                sh "docker images "
             }
         }
         stage("Push") {
