@@ -1,4 +1,3 @@
-Author
 MAINTAINER Lucero del Alba
 
 # extra metadata
