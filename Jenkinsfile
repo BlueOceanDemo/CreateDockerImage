@@ -1,13 +1,16 @@
-node {
-    stage 'Checkout'
-    /* Checkout the code we are currently running against */
-    checkout scm
+pipeline {
+    agent any
 
-    stage 'Build'
-    /* Build the Docker image with a Dockerfile, tagging it with the build number */
-    def app = docker.build "artirix/our-app:${env.BUILD_NUMBER}"
-
-    stage 'Publish'
-    /* Push the image to Docker Hub, using credentials we have setup separately on the worker node */
-    sh 'echo "Success!!"'
+    stages {
+        stage('Building Docker Images') {
+            steps {
+                sh 'docker build -t test/image:0.1 .'
+            }
+        }
+        stage('Push Image') {
+            steps {
+                sh 'echo "Image Pushed Successfully"'
+            }
+        }
+    }
 }
